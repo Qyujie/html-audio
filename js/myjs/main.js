@@ -47,10 +47,9 @@ window.onload = function() {
 	
 	$("#button").click(function() {
 		console.log("button点击事件");
-
-		audio.src = 'audio/au' + Math.floor(Math.random() * index) + '.mp3';
-		audio.load();
 		
+		audio.src = 'audio/au' + Math.round(Math.random() * index) + '.mp3';
+		audio.load();
 		
 		mouse = -3;//清除点击进度条的鼠标相对位置标记
 	});
@@ -60,7 +59,7 @@ window.onload = function() {
 		
 		styleSheets.deleteRule(0); //清除@keyframes animeLight
 		//进度块动画数据初始化
-		anime=anime+Math.floor(Math.random()*10);
+		anime=anime+Math.round(Math.random()*10);
 		mouse -= 3;
 		//创建@keyframes anime,anime为新定义的动画
 		styleSheets.insertRule("@keyframes "+ anime +"{0% {left:"+ mouse +"px;}100% {left:797px;}}");
@@ -70,10 +69,10 @@ window.onload = function() {
 			"animation-timing-function": "linear",
 		});
 		
-		duration = Math.floor(audio.duration + 0.40); //audio时长,补时间差，延时
+		duration = Math.round(audio.duration); //audio时长
 
 		//audio时长标记
-		min = Math.floor(duration / 60);
+		min = Math.round(duration / 60);
 		sec = duration % 60;
 		if (sec < 10) secText = "0" + sec;
 		else secText = "" + sec;
@@ -113,8 +112,8 @@ window.onload = function() {
 				ctx.fillRect(i * 7, cheight - value, meterWidth, cheight);
 			}
 
-			currentTime = Math.floor(audio.currentTime + 0.40);
-			min = Math.floor(currentTime / 60);
+			currentTime = Math.round(audio.currentTime);
+			min = Math.round(currentTime / 60);
 			sec = currentTime % 60;
 			if (sec < 10) secText = "0" + sec;
 			else secText = "" + sec;
@@ -167,8 +166,8 @@ window.onload = function() {
 		mouse = e.clientX - (windowWidth - 818) / 2; //值范围为进度条长度，这里为1-800
 		audio.currentTime = mouse / 800 * duration; //设置audio播放位置
 
-		currentTime = Math.floor(audio.currentTime + 0.40);//0.4为补延时，可删去
-		min = Math.floor(currentTime / 60);
+		currentTime = Math.round(audio.currentTime + 0.40);//0.4为补延时，可删去
+		min = Math.round(currentTime / 60);
 		sec = currentTime % 60;
 		if (sec < 10) secText = "0" + sec;
 		else secText = "" + sec;
