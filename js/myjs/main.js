@@ -13,7 +13,6 @@
  *          定义的变量anime，长度会随着歌曲的不断切换而无限变长，没有测试，影响未知
  *          点击进度条有几率会出现歌曲实际播放位置与点击位置不符情况
  *          此逻辑上无法做到第一首歌曲不自动播放
- *          点击进度条，进度块位置与鼠标点击位置有偏差，大约向右偏了9px，但实际进度块会刚好在音乐播放完时走到尽头
  *          音乐可能只会缓存一部分，当读完缓存后，就会骤停然后播放下一首，可能与我测试时用的音乐文件格式（mp3）或文件过大（3-17mb）所导致
  *          .....
  */
@@ -38,12 +37,14 @@ window.onload = function() {
 		cwidth = canvas.width,
 		cheight = canvas.height,
 		meterWidth = 5, //谱柱宽度
-		gap = 2,
-		meterNum = 800 / (5 + 2), //谱柱的数量
+		gap = 2,//谱柱间隔
+		meterNum = canvas.width / (meterWidth + gap), //谱柱的数量
 		ctx = canvas.getContext('2d');
 	var audio = $("audio")[0];
 	
 	audio.load();
+	
+	audio.volume = 0.1;
 	
 	$("#button").click(function() {
 		console.log("button点击事件");
@@ -109,7 +110,7 @@ window.onload = function() {
 			for (var i = 0; i < meterNum; i++) {
 				var value = array[i * step];
 				ctx.fillStyle = "rgba(161,216,230,0.7)";
-				ctx.fillRect(i * 7, cheight - value, meterWidth, cheight);
+				ctx.fillRect(i * (meterWidth + gap), cheight - value, meterWidth, cheight);
 			}
 
 			currentTime = Math.round(audio.currentTime);
@@ -122,7 +123,7 @@ window.onload = function() {
 			num = requestAnimationFrame(renderFrame);
 			/*console.log(num);*/
 		}
-		renderFrame();
+		requestAnimationFrame(renderFrame);
 	};
 
 	//播放结束事件，点击下一首
@@ -173,5 +174,4 @@ window.onload = function() {
 		else secText = "" + sec;
 		$("#startTime").text(min + ":" + secText);//显示正在播放的时间点
 	});
-
 };
