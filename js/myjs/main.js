@@ -97,6 +97,7 @@ window.onload = function() {
 		$("#play").removeClass("glyphicon-play");
 		$("#play").addClass("glyphicon-pause");
 
+
 		var actx = new AudioContext();
 		var analyser = actx.createAnalyser();
 		var audioSrc = actx.createMediaElementSource(audio);
@@ -111,9 +112,10 @@ window.onload = function() {
 			for (var i = 0; i < meterNum; i++) {
 				var value = array[i * step];
 				ctx.fillStyle = "rgba(161,216,230,0.7)";
-				ctx.fillRect(i * (meterWidth + gap), cheight - value, meterWidth, cheight);
+				ctx.fillRect(i * (meterWidth + gap), cheight - value, meterWidth, value);
 			}
-
+			
+			
 			currentTime = Math.round(audio.currentTime);
 			min = Math.round(currentTime / 60);
 			sec = currentTime % 60;
