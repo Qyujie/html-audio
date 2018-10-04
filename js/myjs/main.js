@@ -41,7 +41,8 @@ window.onload = function() {
 		meterNum = canvas.width / (meterWidth + gap), //谱柱的数量
 		ctx = canvas.getContext('2d');
 	var audio = $("audio")[0];
-	
+	var lightWidth = canvas.width;
+	console.log(canvas.width);
 	audio.load();
 	
 	audio.volume = 0.1;
@@ -66,7 +67,7 @@ window.onload = function() {
 		styleSheets.insertRule("@keyframes "+ anime +"{0% {left:"+ mouse +"px;}100% {left:797px;}}");
 		//进度条设置
 		$("#light").css({
-			"animation": anime + " " + ((1 - mouse / 800) * duration) + "s",
+			"animation": anime + " " + ((1 - mouse / lightWidth) * duration) + "s",
 			"animation-timing-function": "linear",
 		});
 		
@@ -87,7 +88,7 @@ window.onload = function() {
 
 		//进度条设置
 		$("#light").css({
-			"animation": anime + " " + ((1 - mouse / 800) * duration) + "s",
+			"animation": anime + " " + ((1 - mouse / lightWidth) * duration) + "s",
 			"animation-timing-function": "linear",
 		});
 		console.log(styleSheets);
@@ -163,9 +164,10 @@ window.onload = function() {
 	//点击进度条，左侧时间进度改变
 	$("#div-lightBox").click(function(event) {
 		var e = event || window.event;
-		//（窗体宽度-800）/2为进度条向左偏移宽度，多减去18是因为边框模型会占用宽度，不同浏览器减去的可能不同
-		mouse = e.clientX - (windowWidth - 818) / 2; //值范围为进度条长度，这里为1-800
-		audio.currentTime = mouse / 800 * duration; //设置audio播放位置
+		//（窗体宽度-画布宽度）/2为进度条向左偏移宽度，多减去18是因为边框模型会占用宽度，不同浏览器减去的可能不同
+		mouse = e.clientX - (windowWidth - canvas.width - 18) / 2; //值范围为进度条长度，这里为1-800
+		console.log(mouse);
+		audio.currentTime = mouse / lightWidth * duration; //设置audio播放位置
 
 		currentTime = Math.round(audio.currentTime + 0.40);//0.4为补延时，可删去
 		min = Math.round(currentTime / 60);
