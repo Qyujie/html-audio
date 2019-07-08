@@ -3,32 +3,34 @@
 
 <head>
     <meta charset="utf-8">
+    <style>
+        #lyric {
+            width: 400px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            white-space: pre-line;
+            overflow: auto;
+        }
+    </style>
 </head>
 
 <body>
-
+    <audio crossOrigin="anonymous" <!--controls="controls" -->></audio>
     <canvas id="myCanvas" style="border:1px solid #c3c3c3;">
-Your browser does not support the canvas element.
-</canvas>
+        Your browser does not support the canvas element.
+    </canvas>
+    <div id='lyric'></div>
 
+    <script src="lib/jquery/2.0.0/jquery.min.js"></script>
+    <script src="js/bindlrc.js"></script>
     <script type="text/javascript">
-        var canvas = document.getElementById("myCanvas");
-        var windowWidth = window.innerWidth * 0.8,
-            windowHeight = window.innerHeight * 0.8;
-
-        var canvasWidth = windowWidth > windowHeight ? windowHeight : windowWidth,
-            canvasHeight = windowHeight > windowWidth ? windowWidth : windowHeight;
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-        var cxt = canvas.getContext("2d");
-        var img = new Image();
-        img.src = "http://127.0.0.1:8080/audio/img/img_0.jpg";
-        img.onload = function() {
-            // 执行drawImage语句
-            cxt.translate(canvasWidth / 2, canvasHeight / 2);
-            cxt.rotate(2 * Math.PI / 180);
-            cxt.drawImage(img, -250, -250, 500, 500);
-        }
+        var lrc = "[00:05.00]Vocal:巡音ルカ&初音ミク\n[00:08.3]Music：Utae\n[00:11.666]Lyrics:猫果子冻";
+        var tlyric = "[00:05.00]Vocal:巡音ルカ&初音ミク\n[00:08.3]Music：Utae\n[00:11.666]Lyrics:猫果子冻";
+        var audio = $("#canvas")[0];
+        $('#lyric').bindlrc(audio, lrc, tlyric);
     </script>
 
 </body>

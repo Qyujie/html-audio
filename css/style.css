@@ -119,3 +119,24 @@ input[type="file"] {
 #songs a {
     display: block;
 }
+
+#lyric {
+    width: 400px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    white-space: pre-line;
+    overflow: auto;
+}
+
+#lyric li {
+    position: relative;
+    text-align: center;
+    list-style: none;
+}
+
+.lineheight {
+    color: rgba(161, 216, 230, 1);
+}
