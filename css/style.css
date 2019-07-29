@@ -40,7 +40,7 @@ body {
 /* 滑块  进度条 */
 
 #div-lightBox {
-    height: 4px;
+    height: 2px;
     border: none;
     cursor: pointer;
 }
@@ -54,9 +54,9 @@ body {
 }
 
 #div-lightBox span {
-    height: 16px;
-    width: 16px;
-    top: -6px;
+    height: 8px;
+    width: 8px;
+    top: -3px;
     border: none;
     border-radius: 50%;
     background-color: rgba(0, 165, 208, 1);
@@ -69,8 +69,11 @@ body {
 }
 
 #audio-custom {
-    width: 100%;
+    width: 60%;
     position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
     bottom: 0;
     text-align: center;
 }
@@ -79,6 +82,10 @@ body {
     color: rgba(0, 255, 210, 0.7);
     font-size: 20px;
     margin: 10px 20px 10px 20px;
+}
+
+#glyphiconBox {
+    margin: 30px;
 }
 
 #audio-custom span:hover {
@@ -107,7 +114,7 @@ input[type="file"] {
 }
 
 #songs {
-    width: 200px;
+    width: 250px;
     height: 100%;
     position: fixed;
     top: 0;
@@ -121,12 +128,12 @@ input[type="file"] {
 }
 
 #lyric {
-    width: 400px;
+    width: 250px;
     height: 100%;
     position: fixed;
     top: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.8);
+    color: white;
     white-space: pre-line;
     overflow: auto;
 }
@@ -139,4 +146,6 @@ input[type="file"] {
 
 .lineheight {
     color: rgba(161, 216, 230, 1);
+    font-weight: bold;
+    font-size: 120%;
 }

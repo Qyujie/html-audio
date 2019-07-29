@@ -89,51 +89,22 @@
                         $this.animate({ scrollTop: $nowlrc[0].offsetTop - window.innerHeight / 2 }, 400);
                     }
                 }, 1000);
-
             });
-        },
-        lineHeight: function(lineno) {
-            var ul = $("#text");
-            var $ul = document.getElementById('text'); // 令正在唱的那一行高亮显示 
-            if (lineno > 0) { $(ul.find("li").get(topNum + lineno - 1)).removeClass("lineheight"); }
-            var nowline = ul.find("li").get(topNum + lineno);
-            $(nowline).addClass("lineheight"); // 实现文字滚动 
-            var _scrollTop;
-            $ul.scrollTop = 0;
-            if ($ul.clientHeight * fraction > nowline.offsetTop) {
-                _scrollTop = 0;
-            } else if (nowline.offsetTop > ($ul.scrollHeight - $ul.clientHeight * (1 - fraction))) {
-                _scrollTop = $ul.scrollHeight - $ul.clientHeight;
-            } else {
-                _scrollTop = nowline.offsetTop - $ul.clientHeight * fraction;
-            } //以下声明歌词高亮行固定的基准线位置成为 “A” 
-            if ((nowline.offsetTop - $ul.scrollTop) >= $ul.clientHeight * fraction) {
-                //如果高亮显示的歌词在A下面，那就将滚动条向下滚动，滚动距离为 当前高亮行距离顶部的距离-滚动条已经卷起的高度-A到可视窗口的距离 
-                $ul.scrollTop += Math.ceil(nowline.offsetTop - $ul.scrollTop - $ul.clientHeight * fraction);
-            } else if ((nowline.offsetTop - $ul.scrollTop) < $ul.clientHeight * fraction && _scrollTop != 0) {
-                //如果高亮显示的歌词在A上面，那就将滚动条向上滚动，滚动距离为 A到可视窗口的距离-当前高亮行距离顶部的距离-滚动条已经卷起的高度 
-                $ul.scrollTop -= Math.ceil($ul.clientHeight * fraction - (nowline.offsetTop - $ul.scrollTop));
-            } else if (_scrollTop == 0) {
-                $ul.scrollTop = 0;
-            } else {
-                $ul.scrollTop += $(ul.find('li').get(0)).height();
-            }
         }
-
     }
 
     var lrcer;
 
-    $.fn.connectaudio = function(audio) {
+    $.fn.connectAudio = function(audio) {
         return this.each(function() {
             lrcer = new Lrcer(audio);
-            console.log(lrcer);
+            //console.log(lrcer);
         });
     }
 
     $.fn.bindlrc = function(lrc, tlyric, wrapper) {
         lrcer = new Lrcer(lrcer.audio, lrcer.thread, this, wrapper);
-        console.log(lrcer);
+        //console.log(lrcer);
         return lrcer.x(lrc, tlyric);
     }
 

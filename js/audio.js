@@ -1,25 +1,15 @@
 /* 
  * author：Qyujie
  * 功能：实现音乐可视化，且拥有音乐播放器功能
- * 未实现功能或缺陷：没有实现播放菜单；
- *                  切换歌曲只能随机切换；
- *                  mp3资源只能用固定的名字；
- *                  背景图片不能随着切换歌曲而切换；
- *                  没有实现音量控制组件
- *                  ......
- * 已知bug：快速点击切换歌曲按钮，会删除掉背景图片容器（#bodydiv）的样式（css），由styleSheets.deleteRule(0)导致；
- *          随着歌曲的不断切换，该网页的可能缓存会越来越大，导致帧数变低；
- *          随着歌曲的不断切换，当点击暂停的时候，铺面可能不会暂停绘制，但由于没有audio的数据，绘制出来的谱柱高度全部为0
- *          定义的变量anime，长度会随着歌曲的不断切换而无限变长，没有测试，影响未知
- *          点击进度条有几率会出现歌曲实际播放位置与点击位置不符情况
- *          此逻辑上无法做到第一首歌曲不自动播放
- *          音乐可能只会缓存一部分，当读完缓存后，就会骤停然后播放下一首，可能与我测试时用的音乐文件格式（mp3）或文件过大（3-17mb）所导致
- *          .....
+ * 未实现功能或缺陷：
+ * 
+ * 已知bug：
+ * 
  */
 
 //canvas大小参考长度
-var windowWidth = window.innerWidth * 0.8,
-    windowHeight = window.innerHeight * 0.8;
+var windowWidth = window.innerWidth * 0.6,
+    windowHeight = window.innerHeight * 0.6;
 if (windowWidth > windowHeight) windowWidth = windowHeight;
 else windowHeight = windowWidth;
 
@@ -44,7 +34,7 @@ analyser.connect(actx.destination); //连接音频设备，注释此行代码会
 audioSrc.connect(analyser);
 
 //歌词 API
-$("#lyric").connectaudio(audio);
+$("#lyric").connectAudio(audio);
 
 //频谱canvas
 var canvas = $("#canvas")[0],
@@ -99,8 +89,16 @@ $("#next").click(function() {
     loadSong($nextPlaySong);
 });
 
+
+//菜单弹出收回
 $("#meun").click(function() {
-    $('#songs').slideToggle("slow");
+    var $songs = $('#songs');
+    var width = $songs.css('width'),
+        left = '0px';
+    if ($songs.css('left') == '0px') {
+        left = '-' + width;
+    }
+    $songs.animate({ left: left }, 400);
 });
 
 audio.oncanplay = function() {
