@@ -162,6 +162,8 @@
             ctx.lineCap = this.options.ctxLineCap;
             ctx.lineWidth = meterWidth;
             ctx.strokeStyle = this.options.ctxStrokeStyle;
+            ctx.translate(circleCenterX, circleCenterY); //设置中心点
+            ctx.lineJoin = "round";
 
             //封面canvas
             var imgCanvas = $('<canvas id="songImg"></canvas>')[0];
@@ -187,17 +189,30 @@
                 array = new Uint8Array(analyser.frequencyBinCount);
                 analyser.getByteFrequencyData(array);
                 var value;
+                var nextvalue;
+                var nexti;
                 k += angularVelocity;
                 k = k >= meterNum ? 0 : k; //转一圈后重置
-                ctx.clearRect(0, 0, size, size);
+                ctx.clearRect(-circleCenterX, -circleCenterY, size, size);
                 ctx.beginPath();
                 for (let i = deviation; i < length; i++) {
                     arrValue = array[i];
                     //value = arrValue < 2 ? 2 : arrValue;
                     value = arrValue;
 
-                    ctx.moveTo((radius + value) * Math.cos((i + k) * angleStep) + circleCenterX, (radius + value) * Math.sin((i + k) * angleStep) + circleCenterY);
-                    ctx.lineTo((radius) * Math.cos((i + k) * angleStep) + circleCenterX, (radius) * Math.sin((i + k) * angleStep) + circleCenterY);
+
+                    nextvalue = i == (length - 1) ? array[deviation] : array[i + 1];
+                    nexti = i == (length - 1) ? deviation : (i + 1);
+                    ctx.moveTo((radius + value) * Math.cos((i + k) * angleStep), (radius + value) * Math.sin((i + k) * angleStep));
+                    ctx.lineTo((radius) * Math.cos((i + k) * angleStep), (radius) * Math.sin((i + k) * angleStep));
+
+                    // if (i == deviation)
+                    //     ctx.moveTo((radius + value) * Math.cos((i + k) * angleStep), (radius + value) * Math.sin((i + k) * angleStep));
+
+                    // ctx.lineTo((radius + nextvalue) * Math.cos((nexti + k) * angleStep), (radius + nextvalue) * Math.sin((nexti + k) * angleStep));
+
+                    // ctx.moveTo((radius + value) * Math.cos((i + k) * angleStep), (radius + value) * Math.sin((i + k) * angleStep));
+                    // ctx.lineTo((radius + value) * Math.cos((i + k) * angleStep), (radius + value) * Math.sin((i + k) * angleStep));
 
                 }
                 ctx.stroke();

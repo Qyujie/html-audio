@@ -11,7 +11,8 @@
 var audio = $("#audio").niceConnect();
 
 $('#canvas').bindanima({
-    meterNum: 240
+    meterNum: 240,
+    angularVelocity: 0.05
 });
 
 function connectbar(audio) {
